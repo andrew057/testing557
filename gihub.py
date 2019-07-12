@@ -126,7 +126,7 @@ def keyboardd(response):
        cursor.close()
        connection.close()'''
 def sqlQuery( query, number ):
-   ps = '6Q4g9C3k'
+   ps = os.environ.get( 'PASSWORD' )
    conn = mysql.connector.connect( host = '46.174.50.9', user = 'u8894_testonlik', password = str( ps ), database = 'u8894_testonlik' )
    cursor = conn.cursor()
    cursor.execute(query)
