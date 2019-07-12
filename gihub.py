@@ -7,8 +7,8 @@ import time
 import calendar
 import mysql.connector
 import pytz
-
-token ='9a1ded9efde06e828a4c2f3376cb969f6c939448bf45f35f757bf225f5b8ff4e839f305b0eecb170dd85b'
+import os
+token = os.environ.get( 'BOT_TOKEN' )
 vk_session = vk_api.VkApi(token=token)
 
 session_api = vk_session.get_api()
