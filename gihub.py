@@ -450,14 +450,18 @@ while True:
                 elif response == '!моя статистика':
                     vk_session.method('messages.send', {'user_id': event.user_id, 'message': str(statistic(event.user_id)), 'random_id': 0})
                 elif response.split(' ')[0] == '!статистика' and len( response.split(' ') ) == 2:
-                    adminZapros, zaprosExist = adminPlayer( event.user_id, response.split(' ')[1] )
+                    try:
+                        id = tostring( str( sqlQuery( "select id from everyData where nick = '" + str( event.text.split(' ')[1] ) +"'", 1 )[0][0] ) )
+                    except Exception:
+                        id = ''
+                    adminZapros, zaprosExist = adminPlayer( event.user_id, id )
                     if adminZapros != 'Yes':
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Вы не админ!', 'random_id': 0})
                     else:
                         if len( zaprosExist ) == 0:
                             vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Такой игрок не зарегистрирован!', 'random_id': 0})
                         else:
-                            vk_session.method('messages.send', {'user_id': event.user_id, 'message': str( statistic(response.split(' ')[1] ) ), 'random_id': 0})
+                            vk_session.method('messages.send', {'user_id': event.user_id, 'message': str( statistic(id ) ), 'random_id': 0})
                 elif response.split(' ')[0] == '!специальновышел' and len( response.split(' ') ) == 2:
                     adminZapros, zaprosExist = adminPlayer( event.user_id, response.split(' ')[1] )
                     if adminZapros != 'Yes':
