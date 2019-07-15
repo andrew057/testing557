@@ -302,7 +302,7 @@ while True:
             keyboard = keyboardd(response)
             if  event.from_user and not event.from_me:
                 zaprosChecking = sqlQuery( "Select Nick from everyData where id = +'"+str( event.user_id ) + " ' ", 1)
-                if response=="начать":
+                if response == "начать":
                     if len(zaprosChecking) == 0:
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Вы еще не зарегистрированы!', 'random_id': 0})
                     else:
@@ -331,7 +331,7 @@ while True:
                         else:
                             sqlQuery("INSERT INTO everyData(Nick,id) VALUES ('"+str(event.text.split(' ')[2])+"','"+str(response.split(' ')[1])+"')", 2 )
                             vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Аккаунт зарегистрирован!', 'random_id': 0})
-                            sqlQuery( "update everyData set reg = '" + str( mounthDay() ) + "'", 2 )
+                            sqlQuery( "update everyData set reg = '" + str( mounthDay() ) + "' where id = '"+str(response.split(' ')[1])+"'", 2 )
                 elif response.split(' ')[0]=='!убрать' and len( response.split(' ') ) == 2:
                     try:
                         zapros = sqlQuery( "Select Nick from everyData where id = +'"+str( response.split(' ')[1] ) + " ' ", 1)
@@ -508,7 +508,7 @@ while True:
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Такой id не зарегистрирован!', 'random_id': 0})
                     else:
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Good', 'random_id': 0})
-                        sqlQuery( "update everyData set nick = '" + str( response.split(' ')[2] ) + "' where id = '" + str( response.split(' ')[1] ) + "'", 2 )
+                        sqlQuery( "update everyData set nick = '" + str( event.text.split(' ')[2] ) + "' where id = '" + str( response.split(' ')[1] ) + "'", 2 )
                 elif response.split(' ')[0] == '!members' and len( response.split(' ') ) == 2:
                     try:
                         admin = sqlQuery( "select adminka from everyData where id = '" + str( event.user_id ) + "'", 1 )
