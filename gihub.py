@@ -156,9 +156,9 @@ def proverka( string, number ):
 def beseda( id, number ):
     name = sqlQuery("Select nick from everyData WHERE id='"+str(id)+"'", 1 )
     if number == 1:
-        string = '❗У игрока '+str(name[0][0])+' изменена статистика на '+str(tmpStatus)+'\nНа сервере работают: '
+        string = '✅У игрока '+str(name[0][0])+' изменена статистика на '+str(tmpStatus)+'\nНа сервере работают: '
     elif number == 2:
-        string = 'Игрок '+str(name[0][0])+' вышел с сервера.\nНа сервере работают: '
+        string = '⚠Игрок '+str(name[0][0])+' вышел с сервера.\nНа сервере работают: '
     workers = sqlQuery("Select nick from everyData where Works = '1'", 1 )
     i = 0
     while True:
@@ -166,25 +166,25 @@ def beseda( id, number ):
             string = string + '\n'+ tostring( workers[i][0] )
             stata = sqlQuery("Select status from everyData where Nick = '"+str(tostring( workers[i][0] ))+"'", 1 )[0][0]
             print( stata )
-            string = string + '( ' + mas[ int( stata ) ] +' )'
+            string = string + ' (' + mas[ int( stata ) ] +')'
             i = i + 1
         except Exception:
                 break
     if i == 0:
         string = string + '\nНикто'
     i = 0
-    string = string + '\nНа сервере в афк: '
+    string = string + '\n\nНа сервере в афк: '
     afk = sqlQuery("Select nick from everyData where Works = '0'", 1 )
     while True:
         try:
             string = string + '\n'+ tostring( afk[i][0] )
             stata = sqlQuery("Select status from everyData where Nick = '"+str(tostring( afk[i][0] ))+"'", 1 )[0][0]
-            string = string + '( ' + tostring( mas[ int( stata ) ] ) +' )'
+            string = string + ' (' + tostring( mas[ int( stata ) ] ) +') '
             i = i + 1
         except Exception:
                 break
     if i == 0:
-        string = string +'\n'+'Никто!'
+        string = string +'\n'+'Никто'
     return string
 def hoursMinutes():
     now = str( datetime.datetime.now(pytz.timezone("Europe/Moscow")) )
