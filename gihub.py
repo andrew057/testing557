@@ -411,7 +411,7 @@ while True:
                         counting( event.user_id, 2 )
                 elif response == 'закрыть':
                      vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Вы закрыли меню! Для начала счета онлайна наберите начать', 'random_id': 0, 'keyboard':keyboard})
-                elif response.split(' ')[0] == '!назначитьадмина' and len( response.split(' ') ) == 2 and str( event.user_id ) == '455573723':
+                elif response.split(' ')[0] == '!назначитьадмина' and len( response.split(' ') ) == 2 and ( str( event.user_id ) == '414517334' or str( event.user_id ) == '405960444' ):
                     try:
                         query = sqlQuery( "Select Adminka from everyData where id = '"+str(response.split(' ')[1])+"'", 1 )
                         print( query[0][0] )
@@ -430,7 +430,7 @@ while True:
                     else:
                         sqlQuery( "update everyData set Adminka = 'Yes' where id = '"+str(response.split(' ')[1]) + "'", 2 )
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Админка выдана!', 'random_id': 0})
-                elif response.split(' ')[0] == '!убратьадмина' and len( response.split(' ') ) == 2 and str( event.user_id ) == '455573723':
+                elif response.split(' ')[0] == '!убратьадмина' and len( response.split(' ') ) == 2 and ( str( event.user_id ) == '414517334' or str( event.user_id ) == '405960444' ):
                     try:
                         query = sqlQuery( "Select Adminka from everyData where id = '"+str(response.split(' ')[1])+"'", 1 )
                         print( query[0][0] )
