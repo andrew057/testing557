@@ -536,5 +536,13 @@ while True:
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': str( string ), 'random_id': 0})
                     else:
                         vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Вы не админ!', 'random_id': 0})
+                elif response.split(' ')[0] == 'getdata' and len( response.split(' ') ) == 2:
+                    try:
+                        id = tostring( sqlQuery( "select id from everyData where nick = '" + str( event.text.split(' ')[1] ) + "'", 1 ) [0][0] )
+                        x = vk_session.method('users.get', {'user_ids': str(id)})
+                        string = 'Пользователь: ' + str(x[0]['first_name']) + ' ' + str( x[0]['last_name'] ) + '\nid: ' + str(id)
+                        vk_session.method('messages.send', {'user_id': event.user_id, 'message': str(string), 'random_id': 0})
+                    except Exception:
+                        vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Bad sintaxis', 'random_id': 0})
                 else:
                     vk_session.method('messages.send', {'user_id': event.user_id, 'message': 'Неверный синтаксис!', 'random_id': 0})
